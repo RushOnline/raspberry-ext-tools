@@ -1,0 +1,8 @@
+#!/bin/bash
+
+RELEASE="stretch"
+PIBASE="$HOME/raspberry"
+ROOTFS="$PIBASE/rootfs"
+
+CHROOT_MOUNT_DIRS="dev proc sys"
+CHROOT_MOUNT_LOCK="/tmp/chroot-pi.lock"

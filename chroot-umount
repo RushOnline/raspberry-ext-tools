@@ -1,0 +1,25 @@
+#!/bin/sh
+
+# Read config
+. $(dirname $(readlink -f $0) )/config
+
+[ -n "$PIBASE" ] || exit 1
+
+if [ -e $CHROOT_MOUNT_LOCK ]; then
+    # increment chroot counter if it exists
+    LOCK_COUNT=$(cat $CHROOT_MOUNT_LOCK)
+else
+    # initialize chroot counter
+    LOCK_COUNT=0
+fi
+
+[ $LOCK_COUNT -ne 0 ] || exit 1
+
+if [ $LOCK_COUNT -eq 1 ]; then
+    for FS in $CHROOT_MOUNT_DIRS; do
+        umount $ROOTFS/$FS
+    done
+fi
+
+# update lock counter
+echo $(expr $LOCK_COUNT - 1) > $CHROOT_MOUNT_LOCK

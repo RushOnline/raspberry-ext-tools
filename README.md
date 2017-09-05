@@ -1,1 +1,1 @@
-# raspberry-ext-tools
+# Raspberry Pi extended developer scripts and tools
